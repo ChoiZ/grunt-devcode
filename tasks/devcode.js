@@ -42,7 +42,7 @@ function init(grunt)
                 startblock = '<!--\\s*'+cOpen+':\\s*([^-]+)-->';
                 endblock   = '<!--\\s*'+cClose+'\\s*-->';
             }
-            else if ( type == 'js' || type == 'css' )
+            else if ( type == 'js' || type == 'jsx' || type == 'css' )
             {
                 startblock = '\/\/\\s*'+cOpen+':\\s*?([^\\n]+)';
                 endblock   = '\/\/\\s*'+cClose+'\\s*';
@@ -86,7 +86,7 @@ function init(grunt)
             });
         };
 
-        // { html: true, js: true, css: true }
+        // { html: true, js: true, jsx: true, css: true }
         if ( options.html === true )
         {
             replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.html'), 'html');
@@ -94,6 +94,10 @@ function init(grunt)
         if ( options.js === true )
         {
             replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.js'), 'js');
+        }
+        if ( options.jsx === true )
+        {
+            replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.jsx'), 'jsx');
         }
         if ( options.css === true )
         {

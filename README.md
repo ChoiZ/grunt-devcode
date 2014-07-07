@@ -76,6 +76,7 @@ Build task configuration
       {
         html: true,        // html files parsing?
         js: true,          // javascript files parsing?
+        jsx: true,         // jsx files parsing? (photoshop scripts…)
         css: true,         // css files parsing?
         clean: true,       // removes devcode comments even if code was not removed
         block: {
