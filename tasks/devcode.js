@@ -32,18 +32,20 @@ function init(grunt)
         var srcDir = path.resolve(process.cwd(), options.source);
         var dstDir = path.resolve(process.cwd(), options.dest);
         var _this   = this;
+        var startblock = '';
+        var endblock = '';
 
         var replaceCode = function ( files, type )
         {
             if ( type == 'html' || typeof type == 'undefined' )
             {
-                var startblock = '<!--\\s*'+cOpen+':\\s*([^-]+)-->';
-                var endblock   = '<!--\\s*'+cClose+'\\s*-->';
+                startblock = '<!--\\s*'+cOpen+':\\s*([^-]+)-->';
+                endblock   = '<!--\\s*'+cClose+'\\s*-->';
             }
             else if ( type == 'js' || type == 'css' )
             {
-                var startblock = '\/\/\\s*'+cOpen+':\\s*?([^\\n]+)';
-                var endblock   = '\/\/\\s*'+cClose+'\\s*';
+                startblock = '\/\/\\s*'+cOpen+':\\s*?([^\\n]+)';
+                endblock   = '\/\/\\s*'+cClose+'\\s*';
             }
 
             files.forEach(function(file)
@@ -69,7 +71,7 @@ function init(grunt)
                     }
                 });
 
-                if ( options.clean == true ) // remove devcode tags
+                if ( options.clean === true ) // remove devcode tags
                 {
                     body = body.replace(new RegExp('^.*'+startblock + '\\n?', 'gm'), '');
                     body = body.replace(new RegExp(endblock   + '\\n?', 'gm'), '');
@@ -85,17 +87,17 @@ function init(grunt)
         };
 
         // { html: true, js: true, css: true }
-        if ( options.html == true )
+        if ( options.html === true )
         {
             replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.html'), 'html');
         }
-        if ( options.js == true )
+        if ( options.js === true )
         {
             replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.js'), 'js');
         }
-        if ( options.css == true )
+        if ( options.css === true )
         {
             replaceCode(grunt.file.expand({cwd: srcDir, filter : "isFile"},'**/*.css'), 'css');
         }
     });
-};
+}
